@@ -1,27 +1,26 @@
 package com.example.simpledatawarehouse.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegularDimensionEntity {
+public class RegularDimensionEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "dataSource is mandatory")
+    @Column(nullable = false)
     private String dataSource;
 
+    @NotBlank(message = "campaign is mandatory")
+    @Column(nullable = false)
     private String campaign;
 }

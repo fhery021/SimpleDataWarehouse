@@ -2,7 +2,6 @@ package com.example.simpledatawarehouse.csv;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
-import com.opencsv.bean.CsvDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

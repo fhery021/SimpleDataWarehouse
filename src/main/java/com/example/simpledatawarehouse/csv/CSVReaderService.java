@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class CSVReaderService {
 
-    @Value("classpath:reddit-jokes.csv")
+    @Value("classpath:statistics.csv")
     private Resource res;
 
     public List<Statistics> processCSV() throws IOException {
