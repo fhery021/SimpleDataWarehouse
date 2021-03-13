@@ -17,16 +17,21 @@ public class TimeDimensionServiceImpl implements TimeDimensionService {
         this.timeDimensionRepository = timeDimensionRepository;
     }
 
-    @Override
-    public Optional<TimeDimensionEntity> findExample(TimeDimensionEntity entity) {
+    public TimeDimensionEntity saveIfNew(TimeDimensionEntity timeDimensionEntity) {
+        Optional<TimeDimensionEntity> timeDimensionEntityFound = findExample(timeDimensionEntity);
+        if (timeDimensionEntityFound.isEmpty()) {
+            return timeDimensionRepository.save(timeDimensionEntity);
+        } else {
+            return timeDimensionEntityFound.orElseThrow();
+        }
+    }
+
+    private Optional<TimeDimensionEntity> findExample(TimeDimensionEntity entity) {
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
         Example<TimeDimensionEntity> example = Example.of(entity, exampleMatcher);
 
         return timeDimensionRepository.findOne(example);
     }
 
-    @Override
-    public TimeDimensionEntity save(TimeDimensionEntity timeDimensionEntity) {
-        return timeDimensionRepository.save(timeDimensionEntity);
-    }
+
 }

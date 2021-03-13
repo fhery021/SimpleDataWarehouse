@@ -6,7 +6,5 @@ import java.util.Optional;
 
 public interface TimeDimensionService {
 
-    Optional<TimeDimensionEntity> findExample(TimeDimensionEntity entity);
-
-    TimeDimensionEntity save(TimeDimensionEntity timeDimensionEntity);
+    TimeDimensionEntity saveIfNew(TimeDimensionEntity timeDimensionEntity);
 }

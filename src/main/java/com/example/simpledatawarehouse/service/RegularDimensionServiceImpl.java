@@ -17,15 +17,21 @@ public class RegularDimensionServiceImpl implements RegularDimensionService {
         this.regularDimensionRepository = regularDimensionRepository;
     }
 
-    public Optional<RegularDimensionEntity> findExample(RegularDimensionEntity entity) {
+    @Override
+    public RegularDimensionEntity saveIfNew(RegularDimensionEntity entity) {
+        Optional<RegularDimensionEntity> regularDimensionFound = findExample(entity);
+        if (regularDimensionFound.isEmpty()) {
+            return regularDimensionRepository.save(entity);
+        } else {
+            return regularDimensionFound.orElseThrow();
+        }
+    }
+
+    private Optional<RegularDimensionEntity> findExample(RegularDimensionEntity entity) {
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
         Example<RegularDimensionEntity> example = Example.of(entity, exampleMatcher);
 
         return regularDimensionRepository.findOne(example);
     }
 
-    @Override
-    public RegularDimensionEntity save(RegularDimensionEntity regularDimension) {
-        return regularDimensionRepository.save(regularDimension);
-    }
 }

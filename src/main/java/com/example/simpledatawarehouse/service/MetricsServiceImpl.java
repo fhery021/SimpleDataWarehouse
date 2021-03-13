@@ -29,10 +29,10 @@ public class MetricsServiceImpl implements MetricsService {
     @Override
     public MetricsEntity save(MetricsEntity metricsEntity) {
         // TODO MetricsSaveResponse
-        RegularDimensionEntity regularDimension = saveRegularDimensionIfNew(metricsEntity.getRegularDimensionEntity());
+        RegularDimensionEntity regularDimension = regularDimensionService.saveIfNew(metricsEntity.getRegularDimensionEntity());
         metricsEntity.setRegularDimensionEntity(regularDimension);
 
-        TimeDimensionEntity timeDimensionEntity = saveTimeDimensionEntityIfNew(metricsEntity.getTimeDimensionEntity());
+        TimeDimensionEntity timeDimensionEntity = timeDimensionService.saveIfNew(metricsEntity.getTimeDimensionEntity());
         metricsEntity.setTimeDimensionEntity(timeDimensionEntity);
 
         return metricsRepository.save(metricsEntity);
@@ -43,22 +43,4 @@ public class MetricsServiceImpl implements MetricsService {
         return metricsRepository.findAll();
     }
 
-    // TODO SaveIfNew class with BaseEntity parameter
-    private RegularDimensionEntity saveRegularDimensionIfNew(RegularDimensionEntity regularDimension) {
-        Optional<RegularDimensionEntity> regularDimensionFound = regularDimensionService.findExample(regularDimension);
-        if (regularDimensionFound.isEmpty()) {
-            return regularDimensionService.save(regularDimension);
-        } else {
-            return regularDimensionFound.orElseThrow();
-        }
-    }
-
-    private TimeDimensionEntity saveTimeDimensionEntityIfNew(TimeDimensionEntity timeDimensionEntity) {
-        Optional<TimeDimensionEntity> timeDimensionEntityFound = timeDimensionService.findExample(timeDimensionEntity);
-        if (timeDimensionEntityFound.isEmpty()) {
-            return timeDimensionService.save(timeDimensionEntity);
-        } else {
-            return timeDimensionEntityFound.orElseThrow();
-        }
-    }
 }
