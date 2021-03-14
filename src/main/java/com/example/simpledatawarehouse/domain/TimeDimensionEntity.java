@@ -22,7 +22,7 @@ public class TimeDimensionEntity {
 
     @Column(nullable = false)
     private LocalDate date;
-//
-//    @OneToMany
-//    private List<MetricsEntity> metricsEntityList;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<MetricsEntity> metricsEntityList;
 }

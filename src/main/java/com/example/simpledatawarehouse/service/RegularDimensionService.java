@@ -11,4 +11,5 @@ public interface RegularDimensionService {
     RegularDimensionEntity saveIfNew(RegularDimensionEntity entity);
 
     List<RegularDimensionEntity> findByDatasourceAndCampaignFilter(String datasource, String campaign);
+
 }

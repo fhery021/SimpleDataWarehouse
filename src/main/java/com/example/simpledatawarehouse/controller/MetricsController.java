@@ -24,7 +24,7 @@ public class MetricsController {
 
     @GetMapping("/all")
     public ResponseEntity<Object> findAll(
-            @RequestBody MetricsRequest metricsRequest
+            @RequestBody(required = false) MetricsRequest metricsRequest
     ) {
         return ResponseEntity.ok(metricsService.findAll(metricsRequest).getValue());
     }

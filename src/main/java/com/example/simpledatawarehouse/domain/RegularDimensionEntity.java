@@ -25,6 +25,6 @@ public class RegularDimensionEntity{
     @Column(nullable = false)
     private String campaign;
 
-//    @OneToMany
-//    private List<MetricsEntity> metricsEntityList;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<MetricsEntity> metricsEntityList;
 }

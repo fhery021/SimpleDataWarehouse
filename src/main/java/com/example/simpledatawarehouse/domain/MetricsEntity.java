@@ -28,12 +28,4 @@ public class MetricsEntity {
     @Column(nullable = false)
     private Long impressions;
 
-    @ManyToOne
-    @JoinColumn(name = "regDim_id", nullable = false)
-    private RegularDimensionEntity regularDimensionEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "timeDim_id")
-    private TimeDimensionEntity timeDimensionEntity;
-
 }

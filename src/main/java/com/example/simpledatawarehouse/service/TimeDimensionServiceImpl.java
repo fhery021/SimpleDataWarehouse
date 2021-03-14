@@ -46,7 +46,6 @@ public class TimeDimensionServiceImpl implements TimeDimensionService {
         return timeDimensionEntities;
     }
 
-
     private List<TimeDimensionEntity> findAllByDate(LocalDate date) {
         if (date == null) {
             return timeDimensionRepository.findAll();
@@ -57,20 +56,19 @@ public class TimeDimensionServiceImpl implements TimeDimensionService {
         return findAllByExample(exampleEntity);
     }
 
-
     private List<TimeDimensionEntity> findByDateBetween(LocalDate fromDate, LocalDate toDate) {
         return timeDimensionRepository.findByDateBetween(fromDate, toDate);
     }
 
     private Optional<TimeDimensionEntity> findOneByExample(TimeDimensionEntity entity) {
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id", "metricsEntityList");
         Example<TimeDimensionEntity> example = Example.of(entity, exampleMatcher);
 
         return timeDimensionRepository.findOne(example);
     }
 
     private List<TimeDimensionEntity> findAllByExample(TimeDimensionEntity entity) {
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id", "metricsEntityList");
         Example<TimeDimensionEntity> example = Example.of(entity, exampleMatcher);
 
         return timeDimensionRepository.findAll(example);

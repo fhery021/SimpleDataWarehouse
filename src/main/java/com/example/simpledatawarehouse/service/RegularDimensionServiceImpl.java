@@ -33,9 +33,19 @@ public class RegularDimensionServiceImpl implements RegularDimensionService {
         }
     }
 
+    private Optional<RegularDimensionEntity> findExample(RegularDimensionEntity entity) {
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id", "metricsEntityList");
+        Example<RegularDimensionEntity> example = Example.of(entity, exampleMatcher);
+
+        return regularDimensionRepository.findOne(example);
+    }
+
     @Override
     public List<RegularDimensionEntity> findByDatasourceAndCampaignFilter(String datasource, String campaign) {
+        //
         if (!emptyOrNull(datasource) && !emptyOrNull(campaign)) {
+            // findByDatasourceAndCampaign
+            // if groupBy =>findByDatasourceAndCampaignGroupByX
             return regularDimensionRepository.findByDatasourceAndCampaign(datasource, campaign);
         } else {
             // TODO attack here
@@ -45,13 +55,6 @@ public class RegularDimensionServiceImpl implements RegularDimensionService {
 
     private boolean emptyOrNull(String str) {
         return str == null || str.isEmpty();
-    }
-
-    private Optional<RegularDimensionEntity> findExample(RegularDimensionEntity entity) {
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
-        Example<RegularDimensionEntity> example = Example.of(entity, exampleMatcher);
-
-        return regularDimensionRepository.findOne(example);
     }
 
 }

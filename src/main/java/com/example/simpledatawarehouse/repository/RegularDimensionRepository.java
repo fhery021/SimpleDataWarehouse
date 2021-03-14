@@ -9,5 +9,6 @@ public interface RegularDimensionRepository extends JpaRepository<RegularDimensi
 
     List<RegularDimensionEntity> findByDatasourceAndCampaign(String datasource, String campaign);
 
-    List<RegularDimensionEntity> findByDatasourceOrCampaign(String datasource, String campaign);
+//    RegularDimensionEntity getOneByDatasourceAndCampaign(String datasource, String campaign);
+
 }
