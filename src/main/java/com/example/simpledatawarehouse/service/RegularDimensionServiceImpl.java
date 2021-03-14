@@ -19,6 +19,11 @@ public class RegularDimensionServiceImpl implements RegularDimensionService {
     }
 
     @Override
+    public RegularDimensionEntity save(RegularDimensionEntity entity) {
+        return regularDimensionRepository.save(entity);
+    }
+
+    @Override
     public RegularDimensionEntity saveIfNew(RegularDimensionEntity entity) {
         Optional<RegularDimensionEntity> regularDimensionFound = findExample(entity);
         if (regularDimensionFound.isEmpty()) {

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,4 +24,7 @@ public class RegularDimensionEntity{
     @NotBlank(message = "campaign is mandatory")
     @Column(nullable = false)
     private String campaign;
+
+//    @OneToMany
+//    private List<MetricsEntity> metricsEntityList;
 }

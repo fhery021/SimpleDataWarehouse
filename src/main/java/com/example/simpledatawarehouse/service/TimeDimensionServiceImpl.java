@@ -20,6 +20,11 @@ public class TimeDimensionServiceImpl implements TimeDimensionService {
     }
 
     @Override
+    public TimeDimensionEntity save(TimeDimensionEntity timeDimensionEntity) {
+        return timeDimensionRepository.save(timeDimensionEntity);
+    }
+
+    @Override
     public TimeDimensionEntity saveIfNew(TimeDimensionEntity timeDimensionEntity) {
         Optional<TimeDimensionEntity> timeDimensionEntityFound = findOneByExample(timeDimensionEntity);
         if (timeDimensionEntityFound.isEmpty()) {

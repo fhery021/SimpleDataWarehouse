@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,4 +22,7 @@ public class TimeDimensionEntity {
 
     @Column(nullable = false)
     private LocalDate date;
+//
+//    @OneToMany
+//    private List<MetricsEntity> metricsEntityList;
 }

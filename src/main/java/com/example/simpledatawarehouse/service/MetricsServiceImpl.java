@@ -35,9 +35,11 @@ public class MetricsServiceImpl implements MetricsService {
     public MetricsEntity save(MetricsEntity metricsEntity) {
         // TODO MetricsSaveResponse
         RegularDimensionEntity regularDimension = regularDimensionService.saveIfNew(metricsEntity.getRegularDimensionEntity());
+//        RegularDimensionEntity regularDimension = regularDimensionService.save(metricsEntity.getRegularDimensionEntity());
         metricsEntity.setRegularDimensionEntity(regularDimension);
 
         TimeDimensionEntity timeDimensionEntity = timeDimensionService.saveIfNew(metricsEntity.getTimeDimensionEntity());
+//        TimeDimensionEntity timeDimensionEntity = timeDimensionService.save(metricsEntity.getTimeDimensionEntity());
         metricsEntity.setTimeDimensionEntity(timeDimensionEntity);
 
         return metricsRepository.save(metricsEntity);
@@ -62,7 +64,8 @@ public class MetricsServiceImpl implements MetricsService {
         timeDimensions.forEach(td -> {
             regularDimensions.forEach(rd -> {
                 // TODO GROUP BY DATASOURCE, CAMPAIGN, DATE
-                metricsEntities.addAll(metricsRepository.findAllByTimeAndRegularDimensionEntityId(td.getId(), rd.getId()));
+                metricsEntities.addAll(metricsRepository
+                        .findAllByTimeAndRegularDimensionEntityId(td.getId(), rd.getId()));
             });
         });
 
