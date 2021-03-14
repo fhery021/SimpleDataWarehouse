@@ -10,8 +10,6 @@ public interface MetricsService {
 
     MetricsEntity save(MetricsEntity metricsEntity);
 
-    List<MetricsEntity> findAll();
-
     MappingJacksonValue findAll(MetricsRequest metricsRequest);
 
 }

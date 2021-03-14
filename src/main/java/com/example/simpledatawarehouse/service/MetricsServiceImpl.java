@@ -30,19 +30,7 @@ public class MetricsServiceImpl implements MetricsService {
 
     @Override
     public MetricsEntity save(MetricsEntity metricsEntity) {
-        // TODO MetricsSaveResponse
-//        RegularDimensionEntity regularDimension = regularDimensionService.save(metricsEntity.getRegularDimensionEntity());
-//        metricsEntity.setRegularDimensionEntity(regularDimension);
-//
-//        TimeDimensionEntity timeDimensionEntity = timeDimensionService.save(metricsEntity.getTimeDimensionEntity());
-//        metricsEntity.setTimeDimensionEntity(timeDimensionEntity);
-
         return metricsRepository.save(metricsEntity);
-    }
-
-    @Override
-    public List<MetricsEntity> findAll() {
-        return metricsRepository.findAll();
     }
 
     // TODO find an easier way
