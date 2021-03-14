@@ -18,7 +18,7 @@ public class RegularDimensionEntity{
 
     @NotBlank(message = "dataSource is mandatory")
     @Column(nullable = false)
-    private String dataSource;
+    private String datasource;
 
     @NotBlank(message = "campaign is mandatory")
     @Column(nullable = false)

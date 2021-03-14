@@ -9,12 +9,10 @@ import org.springframework.stereotype.Component;
 public class StatisticsToEntitiesMapper {
 
     private MetricsEntity metricsEntity;
-//    private RegularDimensionEntity regularDimensionEntity;
-//    private TimeDimensionEntity timeDimensionEntity;
 
     public MetricsEntity mapToMetrics(Statistics statistics) {
         RegularDimensionEntity regularDimensionEntity = RegularDimensionEntity.builder()
-                .dataSource(statistics.getDatasource())
+                .datasource(statistics.getDatasource())
                 .campaign(statistics.getCampaign())
                 .build();
         TimeDimensionEntity timeDimensionEntity = TimeDimensionEntity.builder()
@@ -28,14 +26,6 @@ public class StatisticsToEntitiesMapper {
                 .build();
         return metricsEntity;
     }
-
-//    public TimeDimensionEntity getTimeDimensionEntity() {
-//        return timeDimensionEntity;
-//    }
-//
-//    public RegularDimensionEntity getRegularDimensionEntity() {
-//        return regularDimensionEntity;
-//    }
 
     public MetricsEntity getMetricsEntity() {
         return metricsEntity;
