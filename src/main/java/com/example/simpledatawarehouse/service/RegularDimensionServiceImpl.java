@@ -30,14 +30,16 @@ public class RegularDimensionServiceImpl implements RegularDimensionService {
 
     @Override
     public List<RegularDimensionEntity> findByDatasourceAndCampaignFilter(String datasource, String campaign) {
-        if (datasource != null && campaign != null) {
+        if (!emptyOrNull(datasource) && !emptyOrNull(campaign)) {
             return regularDimensionRepository.findByDatasourceAndCampaign(datasource, campaign);
-        }
-        if (datasource == null && campaign == null) {
-            return regularDimensionRepository.findAll();
         } else {
-            return regularDimensionRepository.findByDatasourceOrCampaign(datasource, campaign);
+            // TODO attack here
+            return regularDimensionRepository.findAll();
         }
+    }
+
+    private boolean emptyOrNull(String str) {
+        return str == null || str.isEmpty();
     }
 
     private Optional<RegularDimensionEntity> findExample(RegularDimensionEntity entity) {

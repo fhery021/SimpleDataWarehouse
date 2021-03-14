@@ -1,14 +1,10 @@
 package com.example.simpledatawarehouse.controller;
 
 import com.example.simpledatawarehouse.controller.request.MetricsRequest;
-import com.example.simpledatawarehouse.controller.response.MetricsResponse;
-import com.example.simpledatawarehouse.controller.response.PaginatedMetricsResponse;
 import com.example.simpledatawarehouse.service.MetricsService;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/metrics")
@@ -27,42 +23,49 @@ public class MetricsController {
     // TODO 2. request with requestBody
 
     @GetMapping("/all")
-    public ResponseEntity<PaginatedMetricsResponse> getMetrics(
-            @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+    public ResponseEntity<Object> findAll(
             @RequestBody MetricsRequest metricsRequest
     ) {
-//        MappingJackson
-//        return ResponseEntity.ok(metricsService.)
-        return null;
+        return ResponseEntity.ok(metricsService.findAll(metricsRequest).getValue());
     }
 
-    @GetMapping("/date")
-    public ResponseEntity<MetricsResponse> getMetricsForOneDay(
-            @RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestBody MetricsRequest metricsRequest
-    ) {
-//        return ResponseEntity.ok(metricsService.)
-        return null;
-    }
-
-
-    @GetMapping("/date/page")
-    public ResponseEntity<MetricsResponse> getMetricsForOneDayPaginated(
-            @RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestBody MetricsRequest metricsRequest,
-            @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize
-    ) {
-//        return ResponseEntity.ok(metricsService.)
-        return null;
-    }
-
-    private Integer checkPageNumber(Integer pageNumber) {
-        return pageNumber == null || pageNumber < 0 ? DEFAULT_PAGE_NUMBER : pageNumber;
-    }
-
-    private Integer checkPageSize(Integer pageSize) {
-        return pageSize == null || pageSize < 0 ? DEFAULT_PAGE_SIZE : pageSize;
-    }
+//    @GetMapping("/all")
+//    public ResponseEntity<PaginatedMetricsResponse> getMetrics(
+//            @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+//            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+//            @RequestBody MetricsRequest metricsRequest
+//    ) {
+////        MappingJackson
+////        return ResponseEntity.ok(metricsService.)
+//        return null;
+//    }
+//
+//    @GetMapping("/date")
+//    public ResponseEntity<MetricsResponse> getMetricsForOneDay(
+//            @RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+//            @RequestBody MetricsRequest metricsRequest
+//    ) {
+////        return ResponseEntity.ok(metricsService.)
+//        return null;
+//    }
+//
+//
+//    @GetMapping("/date/page")
+//    public ResponseEntity<MetricsResponse> getMetricsForOneDayPaginated(
+//            @RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+//            @RequestBody MetricsRequest metricsRequest,
+//            @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+//            @RequestParam(value = "pageSize", required = false) Integer pageSize
+//    ) {
+////        return ResponseEntity.ok(metricsService.)
+//        return null;
+//    }
+//
+//    private Integer checkPageNumber(Integer pageNumber) {
+//        return pageNumber == null || pageNumber < 0 ? DEFAULT_PAGE_NUMBER : pageNumber;
+//    }
+//
+//    private Integer checkPageSize(Integer pageSize) {
+//        return pageSize == null || pageSize < 0 ? DEFAULT_PAGE_SIZE : pageSize;
+//    }
 }

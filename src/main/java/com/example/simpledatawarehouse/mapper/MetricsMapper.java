@@ -36,7 +36,7 @@ public class MetricsMapper {
                 .ctr(calculateCTR(entity.getClicks(), entity.getImpressions()))
                 .build();
 
-        return null;
+        return response;
     }
 
 

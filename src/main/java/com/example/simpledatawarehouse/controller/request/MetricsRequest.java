@@ -21,7 +21,8 @@ public class MetricsRequest {
     @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate dateFilter;
 
-    private List<DimensionType> groupByDimensions;
+    // TODO replace with enum
+    private List<String> groupByDimensions;
     private Set<String> filterTypes;
 
 }
