@@ -37,6 +37,9 @@ public class TimeDimensionServiceImpl implements TimeDimensionService {
     @Override
     public List<TimeDimensionEntity> findAllByDateFilterOrInterval(LocalDate dateFilter, LocalDate fromDate, LocalDate toDate) {
         List<TimeDimensionEntity> timeDimensionEntities;
+        if (dateFilter == null && fromDate == null && toDate == null) {
+            return timeDimensionRepository.findAll();
+        }
         if (dateFilter != null) {
             timeDimensionEntities = findAllByDate(dateFilter);
         } else {

@@ -1,15 +1,12 @@
 package com.example.simpledatawarehouse.service;
 
 import com.example.simpledatawarehouse.controller.request.MetricsRequest;
+import com.example.simpledatawarehouse.controller.response.JsonMapper;
 import com.example.simpledatawarehouse.controller.response.MetricsResponse;
 import com.example.simpledatawarehouse.domain.MetricsEntity;
 import com.example.simpledatawarehouse.domain.RegularDimensionEntity;
 import com.example.simpledatawarehouse.domain.TimeDimensionEntity;
 import com.example.simpledatawarehouse.repository.MetricsRepository;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,11 +18,13 @@ public class MetricsServiceImpl implements MetricsService {
     private final RegularDimensionService regularDimensionService;
     private final TimeDimensionService timeDimensionService;
     private final MetricsRepository metricsRepository;
+    private final JsonMapper jsonMapper;
 
-    public MetricsServiceImpl(RegularDimensionService regularDimensionService, TimeDimensionService timeDimensionService, MetricsRepository metricsRepository) {
+    public MetricsServiceImpl(RegularDimensionService regularDimensionService, TimeDimensionService timeDimensionService, MetricsRepository metricsRepository, JsonMapper jsonMapper) {
         this.regularDimensionService = regularDimensionService;
         this.timeDimensionService = timeDimensionService;
         this.metricsRepository = metricsRepository;
+        this.jsonMapper = jsonMapper;
     }
 
     @Override
@@ -33,10 +32,16 @@ public class MetricsServiceImpl implements MetricsService {
         return metricsRepository.save(metricsEntity);
     }
 
-    // TODO find an easier way
-
     @Override
-    public MappingJacksonValue findAll(MetricsRequest metricsRequest) {
+    public List<MetricsEntity> findAll() {
+        return metricsRepository.findAll();
+    }
+
+
+    // TODO find an easier way
+    // TODO Branch with simpler db structure
+    @Override
+    public List<String> findAll(MetricsRequest metricsRequest) {
         List<MetricsResponse> metricsResponses = new ArrayList<>();
 
         List<RegularDimensionEntity> foundInRegularDimension = findInRegularDimensions(metricsRequest);
@@ -74,7 +79,7 @@ public class MetricsServiceImpl implements MetricsService {
                     .build());
         });
 
-        return jacksonValueOf(metricsRequest, metricsResponses);
+        return jsonMapper.mapToResponse(metricsRequest, metricsResponses);
     }
 
     private Double calculateCtr(Integer clicks, Long impressions) {
@@ -94,15 +99,5 @@ public class MetricsServiceImpl implements MetricsService {
                 metricsRequest.getCampaignFilter());
     }
 
-    private MappingJacksonValue jacksonValueOf(MetricsRequest metricsRequest, List<MetricsResponse> metricsResponses) {
-        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.serializeAllExcept(
-                metricsRequest.getFilterTypes());
-        FilterProvider filterProvider = new SimpleFilterProvider().addFilter("metricsFilter", simpleBeanPropertyFilter);
-
-        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(metricsResponses);
-        mappingJacksonValue.setFilters(filterProvider);
-
-        return mappingJacksonValue;
-    }
 
 }

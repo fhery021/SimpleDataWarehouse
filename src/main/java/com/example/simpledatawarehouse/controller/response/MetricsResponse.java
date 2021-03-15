@@ -1,14 +1,14 @@
 package com.example.simpledatawarehouse.controller.response;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
 @Builder
+//@JsonFilter("PropertyFilter")
 public class MetricsResponse {
 
     private String dataSource;
