@@ -70,4 +70,17 @@ public class StatisticsControllerTest {
                 .andExpect(jsonPath("$.length()", greaterThan(1)));
     }
 
+    @Test
+    void findAndGroupByDatasource() throws Exception {
+        mockMvc.perform(get("/api/statistics/findAndGroupByDatasource?datasource=Google Ads&campaign=Adventmarkt Touristik&clicks=7"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", equalTo(1)));
+    }
+
+    @Test
+    void findAndGroupByCampaign() throws Exception {
+        mockMvc.perform(get("/api/statistics/findAndGroupByCampaign?datasource=Google Ads&clicks=100"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", greaterThan(1)));
+    }
 }

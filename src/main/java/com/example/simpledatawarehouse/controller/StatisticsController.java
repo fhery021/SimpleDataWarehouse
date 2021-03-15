@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/statistics")
@@ -119,7 +120,6 @@ public class StatisticsController {
         return ResponseEntity.ok(statisticsService.findAllByDateRange(statisticsRequest));
     }
 
-
     @GetMapping("/findByParameters")
     @ApiOperation(
             value = "Returns statistics by search parameters",
@@ -167,5 +167,63 @@ public class StatisticsController {
             pageSize = DEFAULT_PAGE_SIZE;
         }
         return ResponseEntity.ok(statisticsService.findAll(PageRequest.of(pageNumber, pageSize)));
+    }
+
+    @GetMapping("/findAndGroupByDatasource")
+    @ApiOperation(
+            value = "Returns statistics by search parameters",
+            response = StatisticsResponse.class,
+            responseContainer = "List"
+    )
+    public ResponseEntity<Map<String, List<StatisticsResponse>>> findAndGroupByDatasource(
+            @ApiParam("Filter by datasource")
+            @RequestParam(name = "datasource", required = false) String datasource,
+
+            @ApiParam("Filter by campaign")
+            @RequestParam(name = "campaign", required = false) String campaign,
+
+            @ApiParam("Filter by clicks")
+            @RequestParam(name = "clicks", required = false) Integer clicks,
+
+            @ApiParam("Filter by impressions")
+            @RequestParam(name = "impressions", required = false) Long impressions
+    ) {
+        StatisticsRequest statisticsRequest = StatisticsRequest.builder()
+                .datasourceFilter(datasource)
+                .campaignFilter(campaign)
+                .clicksFilter(clicks)
+                .impressionsFilter(impressions)
+                .build();
+
+        return ResponseEntity.ok(statisticsService.findAndGroupByDatasource(statisticsRequest));
+    }
+
+    @GetMapping("/findAndGroupByCampaign")
+    @ApiOperation(
+            value = "Returns statistics by search parameters",
+            response = StatisticsResponse.class,
+            responseContainer = "List"
+    )
+    public ResponseEntity<Map<String, List<StatisticsResponse>>> findAndGroupByCampaign(
+            @ApiParam("Filter by datasource")
+            @RequestParam(name = "datasource", required = false) String datasource,
+
+            @ApiParam("Filter by campaign")
+            @RequestParam(name = "campaign", required = false) String campaign,
+
+            @ApiParam("Filter by clicks")
+            @RequestParam(name = "clicks", required = false) Integer clicks,
+
+            @ApiParam("Filter by impressions")
+            @RequestParam(name = "impressions", required = false) Long impressions
+    ) {
+        StatisticsRequest statisticsRequest = StatisticsRequest.builder()
+                .datasourceFilter(datasource)
+                .campaignFilter(campaign)
+                .clicksFilter(clicks)
+                .impressionsFilter(impressions)
+                .build();
+
+        return ResponseEntity.ok(statisticsService.findAndGroupByCampaign(statisticsRequest));
     }
 }

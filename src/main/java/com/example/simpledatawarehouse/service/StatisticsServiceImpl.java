@@ -13,7 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -96,5 +96,26 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Map<String, List<StatisticsResponse>> findAndGroupByDatasource(StatisticsRequest request) {
+        StatisticsEntityExampleMaker exampleMaker = new StatisticsEntityExampleMaker();
+        Example<StatisticsEntity> example = exampleMaker.createExampleFrom(request);
+
+        return statisticsRepository.findAll(example)
+                .stream()
+                .map(mapper::entityToResponse)
+                .collect(Collectors.groupingBy(StatisticsResponse::getDatasource));
+    }
+
+    @Override
+    public Map<String, List<StatisticsResponse>> findAndGroupByCampaign(StatisticsRequest request) {
+        StatisticsEntityExampleMaker exampleMaker = new StatisticsEntityExampleMaker();
+        Example<StatisticsEntity> example = exampleMaker.createExampleFrom(request);
+
+        return statisticsRepository.findAll(example)
+                .stream()
+                .map(mapper::entityToResponse)
+                .collect(Collectors.groupingBy(StatisticsResponse::getCampaign));
+    }
 
 }
