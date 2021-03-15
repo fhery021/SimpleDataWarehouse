@@ -17,7 +17,7 @@ public class LoadDataFromCSVService {
     }
 
     public void load() throws IOException {
-        if (statisticsService.findAll().isEmpty()) {
+        if (statisticsService.noEntries()) {
             List<Statistics> statisticsList = csvReaderService.processCSV();
             statisticsList.stream().forEach(statisticsService::saveStatistics);
         }

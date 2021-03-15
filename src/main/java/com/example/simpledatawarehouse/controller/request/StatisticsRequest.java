@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MetricsRequest {
+public class StatisticsRequest {
 
     @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate fromDate;
@@ -25,10 +27,8 @@ public class MetricsRequest {
     private String datasourceFilter;
     private String campaignFilter;
     @JsonFormat(pattern = "MM/dd/yyyy")
-    private LocalDate dateFilter;
-
-    // TODO replace with enum
-    private String groupBy;
-    private List<String> showOnlyFields;
+    private LocalDate exactDayFilter;
+    private Integer clicksFilter;
+    private Long impressionsFilter;
 
 }

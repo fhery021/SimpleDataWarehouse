@@ -1,14 +1,25 @@
 package com.example.simpledatawarehouse.service;
 
+import com.example.simpledatawarehouse.controller.request.StatisticsRequest;
+import com.example.simpledatawarehouse.controller.response.StatisticsPagedList;
+import com.example.simpledatawarehouse.controller.response.StatisticsResponse;
 import com.example.simpledatawarehouse.csv.Statistics;
-import com.example.simpledatawarehouse.domain.StatisticsEntity;
+import org.springframework.data.domain.PageRequest;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface StatisticsService {
 
     void saveStatistics(Statistics statistics);
 
-    List<StatisticsEntity> findAll();
+    List<StatisticsResponse> findAll(StatisticsRequest request);
+
+    List<StatisticsResponse> findAllByRangeAndDatasource(StatisticsRequest request);
+
+    List<StatisticsResponse> findAllByDateRange(StatisticsRequest statisticsRequest);
+
+    StatisticsPagedList findAll(PageRequest pageRequest);
+
+    boolean noEntries();
+
 }
