@@ -171,7 +171,7 @@ public class StatisticsController {
 
     @GetMapping("/findAndGroupByDatasource")
     @ApiOperation(
-            value = "Returns statistics by search parameters",
+            value = "Returns statistics by search parameters, groups by Datasource",
             response = StatisticsResponse.class,
             responseContainer = "List"
     )
@@ -200,7 +200,7 @@ public class StatisticsController {
 
     @GetMapping("/findAndGroupByCampaign")
     @ApiOperation(
-            value = "Returns statistics by search parameters",
+            value = "Returns statistics by search parameters, groups by Campaign",
             response = StatisticsResponse.class,
             responseContainer = "List"
     )
